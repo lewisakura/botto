@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Wallet" ADD COLUMN     "onHand" INTEGER NOT NULL DEFAULT 0;

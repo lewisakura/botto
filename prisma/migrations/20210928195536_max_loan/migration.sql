@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Wallet" ADD COLUMN     "maxLoan" BIGINT NOT NULL DEFAULT 5000;

@@ -1,0 +1,95 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Discord User Info //
+model DiscordUser {
+  id String @id
+
+  xp      Int @default(0)
+  strikes Strike[]
+}
+
+// Strikes //
+model Strike {
+  id     Int      @id @default(autoincrement())
+
+  actor  String
+  reason String
+  at     DateTime @default(now())
+  weight Int      @default(1)
+
+  discordUser   DiscordUser @relation(fields: [discordUserId], references: [id])
+  discordUserId String
+}
+
+// Stickies //
+model Sticky {
+  id Int @id @default(autoincrement())
+
+  lastMessageId  String @unique
+  channelId      String
+  messageContent String
+}
+
+// Exploiter Information //
+model User {
+  id String @id
+
+  exploitLogs ExploitLog[]
+  banLogs     BanLog[]
+
+  hungerGamesWins Int @default(0)
+}
+
+model ExploitLog {
+  id       Int      @id @default(autoincrement())
+  username String
+  reason   String
+  severity String
+  at       DateTime @default(now())
+  code     String?
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+}
+
+model BanLog {
+  id       Int      @id @default(autoincrement())
+  username String
+  actor    String
+  reason   String
+  tempban  Boolean  @default(false)
+  at       DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+}
+
+// Economy //
+model Wallet {
+  id String @id
+
+  items String[]
+
+  loan            BigInt @default(0)
+  loanPaybackDate DateTime?
+  maxLoan         BigInt @default(5000)
+
+  onHand  BigInt @default(0)
+  balance BigInt @default(100)
+}
+
+model Item {
+  id String @id
+
+  stock Int?
+}

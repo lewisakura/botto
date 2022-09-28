@@ -1,0 +1,16 @@
+# configuration file
+config.json
+# node dependencies
+node_modules/
+# botto database
+botto.db
+botto.db-journal
+.env
+# compiled code
+dist/
+# transparency reports
+transparency.json
+# restart message
+messageRestart.json
+# spotify credentials
+spotify.json

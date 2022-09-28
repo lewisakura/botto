@@ -1,0 +1,4 @@
+{
+    "lua.targetVersion": "5.3",
+    "deepscan.enable": true
+}
